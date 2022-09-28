@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @Masthii
+- 👋 Hi, I’m @Mathis
 - 👀 I’m interested in Video games
 - 🌱 I’m currently learning in BTSSIO
 
