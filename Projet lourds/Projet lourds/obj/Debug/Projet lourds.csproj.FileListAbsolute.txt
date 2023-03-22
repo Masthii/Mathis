@@ -1,0 +1,7 @@
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\bin\Debug\Projet lourds.exe.config
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\bin\Debug\Projet lourds.exe
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\bin\Debug\Projet lourds.pdb
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\obj\Debug\Projet lourds.csproj.CoreCompileInputs.cache
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\obj\Debug\Projet lourds.exe
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\obj\Debug\Projet lourds.pdb
+C:\Users\Mathis\source\repos\Projet lourds\Projet lourds\obj\Debug\Projet lourds.csproj.AssemblyReference.cache
