@@ -1,0 +1,42 @@
+body {
+    background-image: url(../image/bingo.jpg);
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+}
+.navbar-nav{
+    text-align: center;
+}
+.navbar-dark .navbar-brand{
+    color: rgb(153, 6, 6);
+    font-family:Pacifico;
+    font-size:xx-large;
+    margin-left: 348%;
+}
+.navbar-nav .mr-auto{
+    text-align: center;
+}
+h1{
+    color: rgb(153, 6, 6);
+    font-family: Lobster;
+    margin-top: 5%;
+    text-align: center;
+}
+h4{
+    color:white;
+    margin-top: 30%;
+}
+.sous-titre{
+    color:white;
+    text-align: right;
+}
+img{
+    position: fixed;
+}
+footer{
+    background-color: black;
+    margin-top: 90%;    
+}
+.Mention-legales{
+    text-align: center;
+}
