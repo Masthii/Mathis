@@ -1,9 +1,7 @@
 body
 {
-    background-image: url(../image/retro.jpg);
     width: 100%;
     height: 900px;
-    background-position: center;
     background-size: cover;
 }
 
