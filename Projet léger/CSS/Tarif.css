@@ -22,3 +22,18 @@ h1{
 img{
     position: fixed;
 }
+h5{
+    color: black;
+}
+h6{
+    color: black;
+}
+li{
+    color: black;
+}
+.card-body{
+    display:inline-grid;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+}
