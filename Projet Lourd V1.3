@@ -1,0 +1,195 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Windows;
+using System.Data;
+
+namespace Projet_lourds
+{
+
+    class Program
+    {
+        static SqlConnection connection;
+
+        static object Connexion()
+        {
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=Loto;User Id=sa;Password=btssio32;";
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                // Connexion à la base de données
+                connection.Open();
+                Console.WriteLine("BDD OK");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            return connection;
+        }
+
+        static void Code()
+        {
+            int x = 3;
+            Console.WriteLine("Veillez entrer votre code  de carte bleu à 4 chiffre suivie de la touche ENTER ! Vous avez " + x + " tentatives !");
+            string code = Console.ReadLine();
+            string mdp = "7150";
+            if (mdp == code)
+            {
+                Console.WriteLine("Paiement confirmer !");
+                Menu(connection);
+            }
+            else
+            {
+                int i = 0;
+                int tentative = 3;
+                while (i <= 2)
+                {
+                    tentative--;
+                    Console.WriteLine("Code incorecte ! Veuillez resaisir votre code,\n Il vous reste " + tentative + " tentatives !");
+                    i++;
+                    code = Console.ReadLine();
+
+                    if (code == mdp)
+                    {
+                        i = i + 4;
+                        Console.WriteLine("Paiement confirmer !");
+                        Menu(connection);
+                    }
+                    if (i == 2)
+                    {
+                        Console.WriteLine("Code erronnée , votre compte est bloqué, merci de contacter votre banque!");
+                        Environment.Exit(0);
+                    }
+                }
+            }
+        }
+
+        static String TirageF(SqlConnection connection)
+        {
+            Connexion();
+            String resultat = "";
+            int n = 5;
+            int[] m = new int[n];
+            Random a = new Random();
+            for (int i = 0; i < m.Length; i++)
+            {
+                m[i] = a.Next(1, 51);
+            }
+            Console.Write("\n");
+            Console.Write("Voici votre ticket ! ");
+            Console.Write("\n");
+            Console.Write("\n");
+            Console.Write("--------------");
+            Console.Write("\n");
+            foreach (int i in m)
+            {
+                resultat += i + " ";
+                Console.Write(i + " ");
+            }
+            Console.Write("\n");
+            Console.Write("--------------");
+            Console.Write("\n");
+            Console.Write("\n");
+            return resultat;
+        }
+
+        static void Menu(SqlConnection connection)
+        {
+            int réponse;
+            do
+            {
+                Console.WriteLine("Veuillez sélectionner une option grâce au chiffre attribué :\n 1 Acheter un ticket de loto\n 2 Historique\n 3 Exit");
+                réponse = Convert.ToInt32(Console.ReadLine());
+                //Début du tirage de Ticket
+                if (réponse == 1)
+                {
+                    Console.WriteLine("Voulez-vous :\n 1 Grille Flash\n 2 Grille normale");
+                    int réponse2 = Convert.ToInt32(Console.ReadLine());
+                    //Début du tirage de Ticket Flash
+                    if (réponse2 == 1)
+                    {
+                        Connexion();
+                        string ticket = TirageF(connection);
+                        Code();
+                        EnregistrerTicket(connection, ticket); // enregistrement du ticket dans la base de données
+                    }
+                    //Fin du tirage de Ticket Flash
+                    //Début du tirage de Ticket normal
+                    else if (réponse2 == 2)
+                    {
+                        Console.WriteLine("Tu dois Choisir 5 nombre entre 1 et 50 compris");
+                        int[] tab = new int[5];
+                        for (int i = 0; i < tab.Length; i++)
+                        {
+                            Console.WriteLine("Choisie un nombre entre 1 et 50 compris");
+                            int ticket1 = Convert.ToInt32(Console.ReadLine());
+                            if (ticket1 <= 50 & ticket1 >= 1)
+                            {
+                                tab[i] = ticket1;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ce chiffre n'est pas dans la liste !");
+                                i--;
+                            }
+                        }
+                        Connexion();
+                        String ticket = String.Join(" ", tab);
+                        EnregistrerTicket(connection, ticket); // enregistrement du ticket dans la base de données
+                        Code();
+                    }
+                    //Fin du tirage de Ticket normal
+                }
+                //Début historique
+                else if (réponse == 2)
+                {
+                    // récupération des tickets dans la base de données
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("SELECT ticket FROM Tickets", connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(reader[0].ToString());
+                    }
+                    reader.Close();
+                    connection.Close();
+                }
+                //Fin historique
+            } while (réponse != 3);
+            Environment.Exit(0);
+        }
+
+        static void EnregistrerTicket(SqlConnection connection, string ticket)
+        {
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand command = new SqlCommand($"INSERT INTO Tickets VALUES ('{ticket}')", connection);
+            Console.WriteLine("Ticket enregistrer dans la bdd");
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+
+
+        static void Main(string[] arg)
+        {
+            SqlConnection connection = (SqlConnection)Connexion();
+            if (connection != null)
+            {
+                Menu(connection);
+                connection.Close();
+            }
+            Console.ReadKey();
+
+        }
+
+
+    }
+}
