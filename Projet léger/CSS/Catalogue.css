@@ -1,0 +1,33 @@
+body {
+    background-image: url(../image/fond.jpg);
+    background-position:25%;
+    background-position-y:20%;
+    color:white
+}
+.navbar-nav{
+    text-align: center;
+    margin-left: 1%;
+}
+.navbar-dark .navbar-brand{
+    color: rgb(153, 6, 6);
+    font-size:xx-large;
+}
+.navbar-nav .mr-auto{
+    text-align:center;
+}
+h1{
+    color: rgb(153, 6, 6);
+    margin-top:2%;
+}
+h5{
+    color: black;
+}
+li{
+    color: black;
+}
+.card-body{
+    display:inline-grid;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+}
